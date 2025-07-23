@@ -2,116 +2,35 @@
   "tools": [
     {
       "id": "json-formatter",
-      "title": "JSON Formatter",
-      "description": "Format and validate JSON data with syntax highlighting",
       "icon": "🔧",
       "component": "JsonFormatter",
-      "category": "data",
-      "tags": ["json", "format", "validate", "prettify"]
+      "tags": ["development"]
     },
     {
       "id": "base64-encoder",
-      "title": "Base64 Encoder",
-      "description": "Encode and decode Base64 strings quickly and easily",
       "icon": "📄",
       "component": "Base64Encoder",
-      "category": "encoding",
-      "tags": ["base64", "encode", "decode", "text"]
+      "tags": ["development"]
     },
     {
-      "id": "url-encoder",
-      "title": "URL Encoder",
-      "description": "Encode and decode URLs for web development",
-      "icon": "🔗",
-      "component": "UrlEncoder",
-      "category": "encoding",
-      "tags": ["url", "encode", "decode", "web"]
-    },
-    {
-      "id": "hash-generator",
-      "title": "Hash Generator",
-      "description": "Generate MD5, SHA-1, SHA-256 hashes from text",
-      "icon": "🔒",
-      "component": "HashGenerator",
-      "category": "security",
-      "tags": ["hash", "md5", "sha1", "sha256", "security"]
-    },
-    {
-      "id": "color-picker",
-      "title": "Color Picker",
-      "description": "Pick colors and get HEX, RGB, HSL values",
-      "icon": "🎨",
-      "component": "ColorPicker",
-      "category": "design",
-      "tags": ["color", "hex", "rgb", "hsl", "design"]
-    },
-    {
-      "id": "regex-tester",
-      "title": "Regex Tester",
-      "description": "Test regular expressions with live preview",
-      "icon": "🔍",
-      "component": "RegexTester",
-      "category": "development",
-      "tags": ["regex", "regexp", "pattern", "test", "match"]
-    },
-    {
-      "id": "qr-generator",
-      "title": "QR Code Generator",
-      "description": "Generate QR codes from text or URLs",
-      "icon": "📱",
-      "component": "QrGenerator",
-      "category": "utility",
-      "tags": ["qr", "qrcode", "generate", "barcode"]
-    },
-    {
-      "id": "timestamp-converter",
-      "title": "Timestamp Converter",
-      "description": "Convert between Unix timestamps and dates",
-      "icon": "⏰",
-      "component": "TimestampConverter",
-      "category": "utility",
-      "tags": ["timestamp", "unix", "date", "time", "convert"]
-    },
-    {
-      "id": "password-generator",
-      "title": "Password Generator",
-      "description": "Generate secure passwords with custom options",
-      "icon": "🛡️",
-      "component": "PasswordGenerator",
-      "category": "security",
-      "tags": ["password", "generate", "secure", "random"]
+      "id": "essay-generator",
+      "icon": "🈸",
+      "component": "EssayGenerator",
+      "tags": ["funny", "text"]
     }
   ],
-  "categories": [
-    {
-      "id": "data",
-      "name": "Data Processing",
+  "tagCategories": {
+    "development": {
+      "name": "Development",
       "color": "#4285f4"
     },
-    {
-      "id": "encoding",
-      "name": "Encoding & Decoding",
-      "color": "#34a853"
-    },
-    {
-      "id": "security",
-      "name": "Security Tools",
-      "color": "#ea4335"
-    },
-    {
-      "id": "design",
-      "name": "Design Tools",
-      "color": "#fbbc04"
-    },
-    {
-      "id": "development",
-      "name": "Development",
-      "color": "#9c27b0"
-    },
-    {
-      "id": "utility",
-      "name": "Utilities",
+    "funny": {
+      "name": "Funny",
       "color": "#ff9800"
+    },
+    "text": {
+      "name": "Text",
+      "color": "#e91e63"
     }
-  ]
+  }
 }

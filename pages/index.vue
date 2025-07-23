@@ -1,54 +1,73 @@
 <template>
-  <div class="tools-page">
+  <div class="min-h-screen bg-gray-50">
     <!-- Hero Section -->
-    <section class="hero-section">
-      <h1 class="hero-title">Developer Toolbox</h1>
-      <p class="hero-subtitle">Essential tools for developers, all in one place</p>
+    <section class="text-center py-16 px-4">
+      <h1 class="text-4xl md:text-6xl font-light text-gray-900 mb-4 tracking-tight">
+        {{ $t('pages.index.title') }}
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 font-light">
+        {{ $t('pages.index.description') }}
+      </p>
     </section>
 
-    <!-- Category Filter -->
-    <section class="filter-section">
-      <div class="category-filters">
+    <!-- Tag Filter -->
+    <section class="mb-10 px-4">
+      <div class="flex justify-center gap-3 flex-wrap max-w-4xl mx-auto">
         <button 
-          @click="selectedCategory = null"
-          :class="{ active: selectedCategory === null }"
-          class="category-btn"
+          @click="selectedTag = null"
+          :class="[
+            'px-4 py-2 rounded-full text-sm font-medium transition-all duration-200',
+            selectedTag === null 
+              ? 'bg-blue-500 text-white border-blue-500' 
+              : 'bg-gray-100 text-gray-700 border-gray-200 hover:bg-gray-200 hover:border-blue-500'
+          ]"
+          class="border whitespace-nowrap"
         >
-          All Tools
+          {{ $t('tags.allTools') }}
         </button>
         <button 
-          v-for="category in categories"
-          :key="category.id"
-          @click="selectedCategory = category.id"
-          :class="{ active: selectedCategory === category.id }"
-          class="category-btn"
-          :style="{ '--category-color': category.color }"
+          v-for="tag in popularTags"
+          :key="tag.name"
+          @click="selectedTag = tag.name"
+          :class="[
+            'px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border whitespace-nowrap',
+            selectedTag === tag.name 
+              ? 'text-white border-transparent' 
+              : 'bg-gray-100 text-gray-700 border-gray-200 hover:bg-gray-200 hover:border-blue-500'
+          ]"
+          :style="selectedTag === tag.name ? { background: tag.color, borderColor: tag.color } : {}"
         >
-          {{ category.name }}
+          {{ $t(`tags.${tag.name}`) }}
         </button>
       </div>
     </section>
 
     <!-- Tools Grid -->
-    <section class="tools-section">
-      <div class="tools-grid">
+    <section class="max-w-7xl mx-auto px-4 pb-16">
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
         <div 
-          v-for="tool in filteredTools"
+          v-for="(tool, index) in filteredTools"
           :key="tool.id"
-          class="tool-card"
+          class="bg-white border border-gray-200 rounded-lg p-3 transition-all duration-200 ease-in-out cursor-pointer relative overflow-hidden group hover:border-blue-500 hover:shadow-lg hover:-translate-y-0.5 flex flex-col"
           @click="openTool(tool)"
         >
-          <div class="tool-icon" :style="{ background: getToolColor(tool.category) }">
+          <div 
+            class="w-6 h-6 rounded-lg flex items-center justify-center text-white mb-2 text-sm"
+            :style="{ background: getToolColor(tool.tags) }"
+          >
             <component :is="getIconComponent(tool.icon)" />
           </div>
-          <h3 class="tool-title">{{ tool.title }}</h3>
-          <p class="tool-description">{{ tool.description }}</p>
-          <div class="tool-tags">
-            <span v-for="tag in tool.tags.slice(0, 3)" :key="tag" class="tag">
-              {{ tag }}
+          <h3 class="text-sm font-medium text-gray-900 mb-1 line-clamp-2">{{ $t(`tools.${tool.id}.title`) }}</h3>
+          <p class="text-xs text-gray-600 mb-2 line-clamp-2 flex-1">{{ $t(`tools.${tool.id}.description`) }}</p>
+          <div class="flex gap-1 flex-wrap">
+            <span 
+              v-for="tag in tool.tags" 
+              :key="tag" 
+              class="text-xs bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded-full"
+            >
+              {{ $t(`tags.${tag}`) }}
             </span>
           </div>
-          <button class="tool-button">Open Tool</button>
         </div>
       </div>
     </section>
@@ -66,17 +85,26 @@ definePageMeta({
 const toolboxConfig = toolboxData
 
 // Reactive data
-const selectedCategory = ref<string | null>(null)
+const selectedTag = ref<string | null>(null)
 
 // Computed properties
 const tools = computed(() => toolboxConfig?.tools || [])
-const categories = computed(() => toolboxConfig?.categories || [])
+
+// Get popular tags from tagCategories
+const popularTags = computed(() => {
+  const tagCategories = toolboxConfig?.tagCategories || {}
+  return Object.entries(tagCategories).map(([key, value]: [string, any]) => ({
+    name: key,
+    displayName: value.name,
+    color: value.color
+  }))
+})
 
 const filteredTools = computed(() => {
-  if (!selectedCategory.value) {
+  if (!selectedTag.value) {
     return tools.value
   }
-  return tools.value.filter((tool: any) => tool.category === selectedCategory.value)
+  return tools.value.filter((tool: any) => tool.tags.includes(selectedTag.value))
 })
 
 // Methods
@@ -85,238 +113,21 @@ const openTool = (tool: any) => {
   navigateTo(`/tools/${tool.id}`)
 }
 
-const getToolColor = (categoryId: string) => {
-  const category = categories.value.find((cat: any) => cat.id === categoryId)
-  return category?.color || '#4285f4'
+const getToolColor = (tags: string[]) => {
+  const tagCategories = toolboxConfig?.tagCategories || {}
+  
+  // Find the first tag that has a defined category color
+  for (const tag of tags) {
+    if (tagCategories[tag as keyof typeof tagCategories]) {
+      return tagCategories[tag as keyof typeof tagCategories].color
+    }
+  }
+  
+  // Default color if no category tag found
+  return '#4285f4'
 }
 
 const getIconComponent = (iconEmoji: string) => {
-  return () => h('span', { style: 'font-size: 24px;' }, iconEmoji)
+  return () => h('span', { style: 'font-size: 14px;' }, iconEmoji)
 }
 </script>
-
-<style scoped>
-/* Hero Section */
-.hero-section {
-  text-align: center;
-  padding: 40px 0 60px;
-  margin-bottom: 40px;
-}
-
-.hero-title {
-  font-size: 56px;
-  font-weight: 400;
-  color: #202124;
-  margin: 0 0 16px;
-  letter-spacing: -0.5px;
-}
-
-.hero-subtitle {
-  font-size: 20px;
-  color: #5f6368;
-  margin: 0;
-  font-weight: 400;
-}
-
-/* Filter Section */
-.filter-section {
-  margin-bottom: 40px;
-}
-
-.category-filters {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  padding: 0 20px;
-}
-
-.category-btn {
-  background: #f8f9fa;
-  color: #3c4043;
-  border: 1px solid #dadce0;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-
-.category-btn:hover {
-  background: #f1f3f4;
-  border-color: #4285f4;
-}
-
-.category-btn.active {
-  background: var(--category-color, #4285f4);
-  color: white;
-  border-color: var(--category-color, #4285f4);
-}
-
-/* Tools Section */
-.tools-section {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.tools-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
-  padding: 0 20px;
-}
-
-/* Tool Cards */
-.tool-card {
-  background: #ffffff;
-  border: 1px solid #dadce0;
-  border-radius: 8px;
-  padding: 24px;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-
-.tool-card:hover {
-  border-color: #4285f4;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
-}
-
-.tool-icon {
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, #4285f4, #34a853);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  margin-bottom: 16px;
-}
-
-.tool-title {
-  font-size: 18px;
-  font-weight: 500;
-  color: #202124;
-  margin: 0 0 8px;
-}
-
-.tool-description {
-  font-size: 14px;
-  color: #5f6368;
-  line-height: 1.5;
-  margin: 0 0 12px;
-}
-
-.tool-tags {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-}
-
-.tag {
-  background: #f1f3f4;
-  color: #5f6368;
-  font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 12px;
-  white-space: nowrap;
-}
-
-.tool-button {
-  background: #4285f4;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  width: 100%;
-}
-
-.tool-button:hover {
-  background: #3367d6;
-}
-
-.tool-button:active {
-  background: #2851a3;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 40px;
-  }
-  
-  .hero-subtitle {
-    font-size: 18px;
-  }
-  
-  .tools-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 0 16px;
-  }
-  
-  .tool-card {
-    padding: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-section {
-    padding: 20px 0 40px;
-    margin-bottom: 20px;
-  }
-  
-  .hero-title {
-    font-size: 32px;
-  }
-  
-  .hero-subtitle {
-    font-size: 16px;
-  }
-  
-  .tools-grid {
-    padding: 0 12px;
-  }
-  
-  .tool-card {
-    padding: 16px;
-  }
-}
-
-/* Animation for card loading */
-.tool-card {
-  animation: fadeInUp 0.5s ease-out;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Stagger animation delay */
-.tool-card:nth-child(1) { animation-delay: 0.1s; }
-.tool-card:nth-child(2) { animation-delay: 0.2s; }
-.tool-card:nth-child(3) { animation-delay: 0.3s; }
-.tool-card:nth-child(4) { animation-delay: 0.4s; }
-.tool-card:nth-child(5) { animation-delay: 0.5s; }
-.tool-card:nth-child(6) { animation-delay: 0.6s; }
-.tool-card:nth-child(7) { animation-delay: 0.7s; }
-.tool-card:nth-child(8) { animation-delay: 0.8s; }
-.tool-card:nth-child(9) { animation-delay: 0.9s; }
-</style>

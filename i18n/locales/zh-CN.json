@@ -1,0 +1,150 @@
+{
+  "layout": {
+    "tools": "工具",
+    "about": "关于",
+    "help": "帮助",
+    "privacy": "隐私政策",
+    "terms": "使用条款"
+  },
+  "tool": {
+    "openTool": "打开工具",
+    "notFound": "工具未找到",
+    "notFoundDescription": "请求的工具未找到。",
+    "backToTools": "← 返回工具列表"
+  },
+  "tags": {
+    "allTools": "所有工具",
+    "development": "开发",
+    "funny": "趣味",
+    "text": "文本"
+  },
+  "tools": {
+    "json-formatter": {
+      "title": "JSON 格式化",
+      "description": "格式化和验证 JSON 数据，支持语法高亮"
+    },
+    "base64-encoder": {
+      "title": "Base64 编码",
+      "description": "快速编码和解码 Base64 字符串",
+      "textInput": "文本输入",
+      "output": "输出",
+      "inputPlaceholder": "请输入要编码/解码的文本...",
+      "outputPlaceholder": "结果将在这里显示...",
+      "encodeButton": "编码为 Base64",
+      "decodeButton": "从 Base64 解码", 
+      "clearButton": "清空",
+      "copyButton": "复制",
+      "copiedButton": "已复制！",
+      "encodeError": "编码失败",
+      "decodeError": "无效的 Base64 字符串",
+      "infoTitle": "Base64 编码信息",
+      "infoContent": "Base64 编码将二进制数据转换为 ASCII 文本格式。它通常用于在电子邮件、URL 和数据传输协议中编码数据，这些场景需要在基于文本的系统中传输二进制数据。"
+    },
+    "essay-generator": {
+      "title": "申论生成器",
+      "description": "生成“高质量”的申论"
+    }
+  },
+  "pages": {
+    "index": {
+      "title": "开发者工具箱",
+      "description": "一个全面的必备 Web 开发工具集合"
+    },
+    "about": {
+      "title": "关于开发者工具箱",
+      "whatIs": {
+        "title": "什么是开发者工具箱？",
+        "content": "开发者工具箱是一个全面的必备 Web 开发工具集合，采用简洁的 Google 风格界面设计。我们的使命是为开发者提供常用实用工具的快速访问，无需复杂的操作。"
+      },
+      "whyBuilt": {
+        "title": "为什么创建这个项目",
+        "content": "作为开发者，我们经常需要寻找简单的工具来格式化 JSON、编码 Base64、生成哈希值或测试正则表达式。与其收藏多个网站，我们创建了一个统一的平台来容纳所有这些必备工具。"
+      },
+      "privacy": {
+        "title": "隐私与安全",
+        "content": "所有操作都在您的浏览器中客户端执行。我们不存储、跟踪或传输您的任何数据。您的信息保持私密和安全。"
+      }
+    },
+    "help": {
+      "title": "帮助与支持",
+      "gettingStarted": {
+        "title": "快速开始",
+        "content": "欢迎使用开发者工具箱！我们的工具设计简单直观。只需从首页点击任何工具即可开始使用。"
+      },
+      "faq": {
+        "title": "常见问题",
+        "dataSafety": {
+          "question": "我的数据安全吗？",
+          "answer": "是的！所有处理都在您的浏览器中进行。我们不会存储或传输您的任何数据。"
+        },
+        "accountRequired": {
+          "question": "我需要创建账户吗？",
+          "answer": "不需要账户。只需访问即可立即开始使用工具。"
+        },
+        "offlineUsage": {
+          "question": "可以离线使用吗？",
+          "answer": "加载后，大多数工具可以离线工作，因为它们完全在您的浏览器中运行。"
+        }
+      },
+      "contactSupport": {
+        "title": "联系支持",
+        "content": "如果您遇到任何问题或对新工具有建议，请通过我们的",
+        "emailLink": "支持邮箱"
+      }
+    },
+    "privacy": {
+      "title": "隐私政策",
+      "commitment": {
+        "title": "我们对隐私的承诺",
+        "content": "在开发者工具箱，我们致力于保护您的隐私。本隐私政策解释了您使用我们的服务时，我们如何处理信息。"
+      },
+      "dataProcessing": {
+        "title": "数据处理",
+        "content": "所有数据处理完全在您的网络浏览器内进行。我们不收集、存储或传输您输入到我们工具中的任何数据。您的信息永远不会离开您的设备。"
+      },
+      "noDataCollection": {
+        "title": "不收集数据",
+        "content": "我们不收集个人信息、使用统计或关于我们用户的任何其他数据。我们不使用 Cookie、跟踪像素或任何其他跟踪技术。"
+      },
+      "thirdParty": {
+        "title": "第三方服务",
+        "content": "我们的网站不与第三方分析服务、广告网络或任何其他可能收集用户数据的外部服务集成。"
+      },
+      "contact": {
+        "title": "联系信息",
+        "content": "如果您对本隐私政策有任何疑问，请通过"
+      },
+      "lastUpdated": "本隐私政策最后更新于 2024 年 1 月 1 日。"
+    },
+    "terms": {
+      "title": "使用条款",
+      "acceptance": {
+        "title": "条款接受",
+        "content": "通过访问和使用开发者工具箱，您接受并同意受本协议条款和条例的约束。"
+      },
+      "license": {
+        "title": "使用许可",
+        "content": "允许您出于个人和商业目的临时使用开发者工具箱。这是许可证的授予，而不是所有权的转让，在此许可证下，您不得：",
+        "restrictions": [
+          "修改或复制材料",
+          "将材料用于任何商业目的或任何公开展示",
+          "尝试对网站上包含的任何软件进行逆向工程",
+          "从材料中删除任何版权或其他专有标记"
+        ]
+      },
+      "disclaimer": {
+        "title": "免责声明",
+        "content": "开发者工具箱上的材料按原样提供。我们不作任何明示或暗示的保证，并在此否认和否定所有其他保证，包括但不限于适销性、特定用途适用性或不侵犯知识产权或其他权利违规的暗示保证或条件。"
+      },
+      "limitations": {
+        "title": "责任限制",
+        "content": "在任何情况下，开发者工具箱或其供应商都不对因使用或无法使用开发者工具箱上的材料而产生的任何损害（包括但不限于数据或利润损失的损害，或由于业务中断）承担责任，即使我们或我们的授权代表已口头或书面通知此类损害的可能性。"
+      },
+      "modifications": {
+        "title": "修改",
+        "content": "我们可能随时修改这些使用条款，恕不另行通知。通过使用本网站，您同意受当时现行版本的使用条款约束。"
+      },
+      "lastUpdated": "这些使用条款最后更新于 2024 年 1 月 1 日。"
+    }
+  }
+}

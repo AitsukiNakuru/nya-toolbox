@@ -1,0 +1,150 @@
+{
+  "layout": {
+    "tools": "Tools",
+    "about": "About",
+    "help": "Help",
+    "privacy": "Privacy",
+    "terms": "Terms"
+  },
+  "tool": {
+    "openTool": "Open Tool",
+    "notFound": "Tool Not Found",
+    "notFoundDescription": "The requested tool could not be found.",
+    "backToTools": "← Back to Tools"
+  },
+  "tags": {
+    "allTools": "All Tools",
+    "development": "Development",
+    "funny": "Funny",
+    "text": "Text"
+  },
+  "tools": {
+    "json-formatter": {
+      "title": "JSON Formatter",
+      "description": "Format and validate JSON data with syntax highlighting"
+    },
+    "base64-encoder": {
+      "title": "Base64 Encoder",
+      "description": "Encode and decode Base64 strings quickly and easily",
+      "textInput": "Text Input",
+      "output": "Output",
+      "inputPlaceholder": "Enter text to encode/decode...",
+      "outputPlaceholder": "Result will appear here...",
+      "encodeButton": "Encode to Base64",
+      "decodeButton": "Decode from Base64", 
+      "clearButton": "Clear",
+      "copyButton": "Copy",
+      "copiedButton": "Copied!",
+      "encodeError": "Failed to encode text",
+      "decodeError": "Invalid Base64 string",
+      "infoTitle": "Base64 Encoding Information",
+      "infoContent": "Base64 encoding converts binary data into ASCII text format. It's commonly used for encoding data in emails, URLs, and data transfer protocols where binary data needs to be transmitted over text-based systems."
+    },
+    "essay-generator": {
+      "title": "Essay Generator",
+      "description": "Generate \"high-quality\" essays"
+    }
+  },
+  "pages": {
+    "index": {
+      "title": "Developer Toolbox",
+      "description": "A collection of essential web development tools with a clean, Google-inspired interface."
+    },
+    "about": {
+      "title": "About Developer Toolbox",
+      "whatIs": {
+        "title": "What is Developer Toolbox?",
+        "content": "Developer Toolbox is a comprehensive collection of essential web development tools, designed with a clean, Google-inspired interface. Our mission is to provide developers with quick access to commonly needed utilities without the clutter."
+      },
+      "whyBuilt": {
+        "title": "Why We Built This",
+        "content": "As developers, we often find ourselves searching for simple tools to format JSON, encode Base64, generate hashes, or test regex patterns. Instead of bookmarking multiple websites, we created a single, unified platform that houses all these essential tools."
+      },
+      "privacy": {
+        "title": "Privacy & Security",
+        "content": "All operations are performed client-side in your browser. We don't store, track, or transmit any of your data. Your information stays private and secure."
+      }
+    },
+    "help": {
+      "title": "Help & Support",
+      "gettingStarted": {
+        "title": "Getting Started",
+        "content": "Welcome to Developer Toolbox! Our tools are designed to be simple and intuitive. Just click on any tool from the homepage to get started."
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "dataSafety": {
+          "question": "Is my data safe?",
+          "answer": "Yes! All processing happens in your browser. We don't store or transmit any of your data."
+        },
+        "accountRequired": {
+          "question": "Do I need to create an account?",
+          "answer": "No account required. Just visit and start using the tools immediately."
+        },
+        "offlineUsage": {
+          "question": "Can I use this offline?",
+          "answer": "Once loaded, most tools work offline as they run entirely in your browser."
+        }
+      },
+      "contactSupport": {
+        "title": "Contact Support",
+        "content": "If you encounter any issues or have suggestions for new tools, please reach out to us through our",
+        "emailLink": "support email"
+      }
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "commitment": {
+        "title": "Our Commitment to Privacy",
+        "content": "At Developer Toolbox, we are committed to protecting your privacy. This Privacy Policy explains how we handle information when you use our services."
+      },
+      "dataProcessing": {
+        "title": "Data Processing",
+        "content": "All data processing occurs entirely within your web browser. We do not collect, store, or transmit any of the data you input into our tools. Your information never leaves your device."
+      },
+      "noDataCollection": {
+        "title": "No Data Collection",
+        "content": "We do not collect personal information, usage statistics, or any other data about our users. We do not use cookies, tracking pixels, or any other tracking technologies."
+      },
+      "thirdParty": {
+        "title": "Third-Party Services",
+        "content": "Our website does not integrate with third-party analytics services, advertising networks, or any other external services that could collect user data."
+      },
+      "contact": {
+        "title": "Contact Information",
+        "content": "If you have any questions about this Privacy Policy, please contact us at"
+      },
+      "lastUpdated": "This privacy policy was last updated on January 1, 2024."
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "acceptance": {
+        "title": "Acceptance of Terms",
+        "content": "By accessing and using Developer Toolbox, you accept and agree to be bound by the terms and provision of this agreement."
+      },
+      "license": {
+        "title": "Use License",
+        "content": "Permission is granted to temporarily use Developer Toolbox for personal and commercial purposes. This is the grant of a license, not a transfer of title, and under this license you may not:",
+        "restrictions": [
+          "modify or copy the materials",
+          "use the materials for any commercial purpose or for any public display",
+          "attempt to reverse engineer any software contained on the website",
+          "remove any copyright or other proprietary notations from the materials"
+        ]
+      },
+      "disclaimer": {
+        "title": "Disclaimer",
+        "content": "The materials on Developer Toolbox are provided on an 'as is' basis. We make no warranties, expressed or implied, and hereby disclaim and negate all other warranties including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights."
+      },
+      "limitations": {
+        "title": "Limitations",
+        "content": "In no event shall Developer Toolbox or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Developer Toolbox, even if we or our authorized representative has been notified orally or in writing of the possibility of such damage."
+      },
+      "modifications": {
+        "title": "Modifications",
+        "content": "We may revise these terms of service at any time without notice. By using this website, you are agreeing to be bound by the then current version of these terms of service."
+      },
+      "lastUpdated": "These terms of service were last updated on January 1, 2024."
+    }
+  }
+}

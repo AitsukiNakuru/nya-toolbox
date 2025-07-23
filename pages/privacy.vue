@@ -1,39 +1,38 @@
 <template>
-  <div class="privacy-page">
-    <div class="content-container">
-      <h1 class="page-title">Privacy Policy</h1>
-      <div class="content">
+  <div class="max-w-4xl mx-auto py-10 px-5">
+    <div class="bg-white rounded-lg p-10 shadow-lg">
+      <h1 class="text-3xl font-normal text-gray-900 mb-8 text-center">{{ $t('pages.privacy.title') }}</h1>
+      <div class="text-base leading-relaxed text-gray-700 space-y-6">
         <section>
-          <h2>Information We Collect</h2>
-          <p>This toolbox website operates entirely in your browser. We do not collect, store, or transmit any of your personal data or the content you process through our tools.</p>
+          <h2 class="text-xl font-medium text-gray-900 mb-4">{{ $t('pages.privacy.commitment.title') }}</h2>
+          <p>{{ $t('pages.privacy.commitment.content') }}</p>
         </section>
 
         <section>
-          <h2>Local Processing</h2>
-          <p>All tools on this website process your data locally in your browser. Your data never leaves your device:</p>
-          <ul>
-            <li>JSON formatting and validation</li>
-            <li>Base64 encoding/decoding</li>
-            <li>URL encoding/decoding</li>
-            <li>Hash generation</li>
-            <li>Password generation</li>
-            <li>All other tools</li>
-          </ul>
+          <h2 class="text-xl font-medium text-gray-900 mb-4">{{ $t('pages.privacy.dataProcessing.title') }}</h2>
+          <p>{{ $t('pages.privacy.dataProcessing.content') }}</p>
         </section>
 
         <section>
-          <h2>No Data Storage</h2>
-          <p>We do not store any data you input into our tools. When you refresh the page or navigate away, all your data is cleared.</p>
+          <h2 class="text-xl font-medium text-gray-900 mb-4">{{ $t('pages.privacy.noDataCollection.title') }}</h2>
+          <p>{{ $t('pages.privacy.noDataCollection.content') }}</p>
         </section>
 
         <section>
-          <h2>Analytics</h2>
-          <p>We may use privacy-focused analytics to understand how our tools are used, but no personal information is collected.</p>
+          <h2 class="text-xl font-medium text-gray-900 mb-4">{{ $t('pages.privacy.thirdParty.title') }}</h2>
+          <p>{{ $t('pages.privacy.thirdParty.content') }}</p>
         </section>
 
         <section>
-          <h2>Contact</h2>
-          <p>If you have any questions about this privacy policy, please contact us.</p>
+          <h2 class="text-xl font-medium text-gray-900 mb-4">{{ $t('pages.privacy.contact.title') }}</h2>
+          <p>
+            {{ $t('pages.privacy.contact.content') }}
+            <a href="mailto:privacy@example.com" class="text-google-blue hover:text-google-blue-dark">privacy@example.com</a>。
+          </p>
+        </section>
+
+        <section>
+          <p class="text-sm text-gray-500">{{ $t('pages.privacy.lastUpdated') }}</p>
         </section>
       </div>
     </div>
@@ -44,72 +43,8 @@
 definePageMeta({
   layout: 'toolbox',
 })
-
-useSeoMeta({
-  title: 'Privacy Policy - Developer Toolbox',
-  description: 'Privacy policy for Developer Toolbox - All processing happens locally in your browser.',
-})
 </script>
 
 <style scoped>
-.privacy-page {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 40px 20px;
-}
 
-.page-title {
-  font-size: 32px;
-  font-weight: 400;
-  color: #202124;
-  margin-bottom: 32px;
-  text-align: center;
-}
-
-.content {
-  line-height: 1.6;
-  color: #5f6368;
-  background: white;
-  border-radius: 8px;
-  padding: 40px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-section {
-  margin-bottom: 32px;
-}
-
-h2 {
-  font-size: 20px;
-  font-weight: 500;
-  color: #202124;
-  margin-bottom: 16px;
-}
-
-p {
-  margin-bottom: 16px;
-}
-
-ul {
-  margin-left: 20px;
-  margin-bottom: 16px;
-}
-
-li {
-  margin-bottom: 8px;
-}
-
-@media (max-width: 768px) {
-  .privacy-page {
-    padding: 20px 16px;
-  }
-  
-  .content {
-    padding: 24px;
-  }
-  
-  .page-title {
-    font-size: 28px;
-  }
-}
 </style>

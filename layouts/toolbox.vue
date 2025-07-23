@@ -1,29 +1,29 @@
 <template>
-  <div class="toolbox-layout">
+  <div class="min-h-screen flex flex-col font-sans bg-white">
     <!-- Header -->
-    <header class="header">
-      <div class="header-content">
-        <div class="left-section">
-          <NuxtLink to="/" class="logo">
-            <span class="logo-text">Toolbox</span>
+    <header class="border-b border-gray-300 bg-white sticky top-0 z-50">
+      <div class="flex items-center justify-between px-5 py-2 max-w-7xl mx-auto min-h-[60px] md:px-4 md:flex-wrap md:gap-3">
+        <div class="flex-none">
+          <NuxtLink :to="$localePath('/')" class="no-underline text-gray-900 text-xl font-normal tracking-tight sm:text-lg">
+            <span class="text-google-blue font-medium">Toolbox</span>
           </NuxtLink>
         </div>
         
-        <div class="center-section">
-          <div class="search-container">
-            <div class="search-box">
-              <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <div class="flex-1 flex justify-center max-w-[584px] mx-auto md:order-3 md:w-full md:mt-2">
+          <div class="w-full max-w-[584px] md:max-w-none">
+            <div class="relative flex items-center w-full max-w-[584px] h-11 border border-gray-300 rounded-3xl px-4 bg-white transition-shadow duration-200 hover:shadow-lg focus-within:border-google-blue focus-within:shadow-blue-200 focus-within:shadow-md">
+              <svg class="text-gray-400 mr-3 flex-shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="11" cy="11" r="8"></circle>
                 <path d="m21 21-4.35-4.35"></path>
               </svg>
               <input 
                 type="text" 
                 placeholder="Search tools..." 
-                class="search-input"
+                class="flex-1 border-none outline-none text-base text-gray-900 bg-transparent font-sans placeholder-gray-400 sm:text-sm"
                 v-model="searchQuery"
                 @input="handleSearch"
               />
-              <button v-if="searchQuery" @click="clearSearch" class="clear-btn">
+              <button v-if="searchQuery" @click="clearSearch" class="bg-none border-none p-1 ml-2 text-gray-400 cursor-pointer rounded-full flex items-center justify-center transition-colors hover:bg-gray-100">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <line x1="18" y1="6" x2="6" y2="18"></line>
                   <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -33,11 +33,12 @@
           </div>
         </div>
 
-        <div class="right-section">
-          <nav class="nav-links">
-            <NuxtLink to="/about" class="nav-link">About</NuxtLink>
-            <button class="profile-btn">
-              <div class="profile-avatar">
+        <div class="flex-none">
+          <nav class="flex items-center gap-4 md:gap-2">
+            <LanguageSwitcher />
+            <NuxtLink :to="$localePath('/about')" class="no-underline text-gray-600 text-sm px-4 py-2 rounded transition-colors hover:bg-gray-100 hover:text-gray-900 md:px-3 md:py-1.5 md:text-xs">{{ $t('layout.about') }}</NuxtLink>
+            <button class="bg-none border-none p-2 rounded-full cursor-pointer transition-colors hover:bg-gray-100 flex items-center justify-center">
+              <div class="w-8 h-8 rounded-full bg-google-blue flex items-center justify-center text-white">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                   <circle cx="12" cy="7" r="4"></circle>
@@ -50,17 +51,17 @@
     </header>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main class="flex-1 py-10 px-5 max-w-7xl mx-auto w-full md:py-5 md:px-4 sm:py-4 sm:px-3">
       <slot />
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-content">
-        <div class="footer-links">
-          <NuxtLink to="/privacy" class="footer-link">Privacy</NuxtLink>
-          <NuxtLink to="/terms" class="footer-link">Terms</NuxtLink>
-          <NuxtLink to="/help" class="footer-link">Help</NuxtLink>
+    <footer class="border-t border-gray-300 bg-gray-50 mt-auto">
+      <div class="py-4 px-5 max-w-7xl mx-auto">
+        <div class="flex justify-center gap-6 flex-wrap md:gap-4 md:text-xs">
+          <NuxtLink :to="$localePath('/privacy')" class="no-underline text-gray-600 text-sm transition-colors hover:text-gray-900">{{ $t('layout.privacy') }}</NuxtLink>
+          <NuxtLink :to="$localePath('/terms')" class="no-underline text-gray-600 text-sm transition-colors hover:text-gray-900">{{ $t('layout.terms') }}</NuxtLink>
+          <NuxtLink :to="$localePath('/help')" class="no-underline text-gray-600 text-sm transition-colors hover:text-gray-900">{{ $t('layout.help') }}</NuxtLink>
         </div>
       </div>
     </footer>
@@ -84,273 +85,3 @@ const clearSearch = () => {
   searchQuery.value = ''
 }
 </script>
-
-<style scoped>
-/* Layout Structure */
-.toolbox-layout {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #ffffff;
-}
-
-/* Header Styles */
-.header {
-  border-bottom: 1px solid #dadce0;
-  background-color: #ffffff;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.header-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  min-height: 60px;
-}
-
-/* Left Section - Logo */
-.left-section {
-  flex: 0 0 auto;
-}
-
-.logo {
-  text-decoration: none;
-  color: #202124;
-  font-size: 22px;
-  font-weight: 400;
-  letter-spacing: -0.5px;
-}
-
-.logo-text {
-  color: #4285f4;
-  font-weight: 500;
-}
-
-/* Center Section - Search */
-.center-section {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  max-width: 584px;
-  margin: 0 auto;
-}
-
-.search-container {
-  width: 100%;
-  max-width: 584px;
-}
-
-.search-box {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  max-width: 584px;
-  height: 44px;
-  border: 1px solid #dfe1e5;
-  border-radius: 24px;
-  padding: 0 16px;
-  background-color: #ffffff;
-  transition: box-shadow 0.2s ease-in-out;
-}
-
-.search-box:hover {
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
-.search-box:focus-within {
-  border-color: #4285f4;
-  box-shadow: 0 2px 8px 0 rgba(66,133,244,0.2);
-}
-
-.search-icon {
-  color: #9aa0a6;
-  margin-right: 12px;
-  flex-shrink: 0;
-}
-
-.search-input {
-  flex: 1;
-  border: none;
-  outline: none;
-  font-size: 16px;
-  color: #202124;
-  background: transparent;
-  font-family: inherit;
-}
-
-.search-input::placeholder {
-  color: #9aa0a6;
-}
-
-.clear-btn {
-  background: none;
-  border: none;
-  padding: 4px;
-  margin-left: 8px;
-  color: #9aa0a6;
-  cursor: pointer;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s;
-}
-
-.clear-btn:hover {
-  background-color: #f1f3f4;
-}
-
-/* Right Section - Navigation */
-.right-section {
-  flex: 0 0 auto;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.nav-link {
-  text-decoration: none;
-  color: #5f6368;
-  font-size: 14px;
-  padding: 8px 16px;
-  border-radius: 4px;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.nav-link:hover {
-  background-color: #f1f3f4;
-  color: #202124;
-}
-
-.profile-btn {
-  background: none;
-  border: none;
-  padding: 8px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.profile-btn:hover {
-  background-color: #f1f3f4;
-}
-
-.profile-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: #4285f4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-}
-
-/* Main Content */
-.main-content {
-  flex: 1;
-  padding: 40px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-/* Footer */
-.footer {
-  border-top: 1px solid #dadce0;
-  background-color: #f8f9fa;
-  margin-top: auto;
-}
-
-.footer-content {
-  padding: 16px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.footer-links {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.footer-link {
-  text-decoration: none;
-  color: #5f6368;
-  font-size: 14px;
-  transition: color 0.2s;
-}
-
-.footer-link:hover {
-  color: #202124;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .header-content {
-    padding: 8px 16px;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  
-  .center-section {
-    order: 3;
-    width: 100%;
-    margin-top: 8px;
-  }
-  
-  .search-box {
-    max-width: none;
-  }
-  
-  .nav-links {
-    gap: 8px;
-  }
-  
-  .nav-link {
-    padding: 6px 12px;
-    font-size: 13px;
-  }
-  
-  .main-content {
-    padding: 20px 16px;
-  }
-  
-  .footer-links {
-    gap: 16px;
-    font-size: 13px;
-  }
-}
-
-@media (max-width: 480px) {
-  .header-content {
-    padding: 8px 12px;
-  }
-  
-  .logo {
-    font-size: 20px;
-  }
-  
-  .search-input {
-    font-size: 14px;
-  }
-  
-  .main-content {
-    padding: 16px 12px;
-  }
-}
-</style>
