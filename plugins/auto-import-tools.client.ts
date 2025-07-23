@@ -11,7 +11,9 @@ export default defineNuxtPlugin((nuxtApp) => {
     const componentName = path.split('/').pop()?.replace('.vue', '') || ''
     
     if (componentName && component) {
-      nuxtApp.vueApp.component(componentName, component)
+      // 确保组件名称大小写一致，使用 PascalCase
+      const pascalCaseName = componentName.charAt(0).toUpperCase() + componentName.slice(1)
+      nuxtApp.vueApp.component(pascalCaseName, component)
     }
   }
 })

@@ -25,7 +25,7 @@
 
       <!-- Dynamic Tool Component -->
       <div class="bg-white rounded-lg border border-gray-300 overflow-hidden">
-        <component v-if="tool" :is="getToolComponent(tool.component)" />
+        <component v-if="tool && toolComponent" :is="toolComponent" />
       </div>
     </div>
 
@@ -39,6 +39,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { resolveComponent } from 'vue'
 import toolboxData from '../../content/toolbox.json'
 
 definePageMeta({
@@ -52,6 +53,17 @@ const toolId = route.params.id as string
 // Find the tool configuration
 const tool = computed(() => {
   return toolboxData.tools.find((t: any) => t.id === toolId)
+})
+
+// Resolve the tool component
+const toolComponent = computed(() => {
+  if (!tool.value) return null
+  try {
+    return resolveComponent(tool.value.component)
+  } catch (error) {
+    console.error('Failed to resolve component:', tool.value.component, error)
+    return null
+  }
 })
 
 // Methods
@@ -71,11 +83,6 @@ const getToolColor = (tags: string[]) => {
 
 const getIconComponent = (iconEmoji: string) => {
   return () => h('span', { style: 'font-size: 24px;' }, iconEmoji)
-}
-
-// Dynamic component resolution using the global components registered by the plugin
-const getToolComponent = (componentName: string) => {
-  return componentName // Return the component name as string for Vue to resolve
 }
 
 // Set page title

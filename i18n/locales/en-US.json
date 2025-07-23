@@ -42,7 +42,56 @@
     },
     "essay-generator": {
       "title": "Essay Generator",
-      "description": "Generate \"high-quality\" essays"
+      "description": "Generate 'high-quality' essays",
+      "pageTitle": "Intelligent Essay Generator",
+      "pageDescription": "Efficiently generate high-quality essays to help with exam preparation.",
+      "topicLabel": "Essay Topic",
+      "topicRequired": "*",
+      "topicPlaceholder": "Please enter the essay topic or material summary, e.g.: Thoughts on promoting digital transformation...",
+      "essayTypeLabel": "Essay Type",
+      "wordCountLabel": "Word Count Requirement",
+      "wordCountPlaceholder": "Please enter word count, e.g.: 1000",
+      "wordUnit": "words",
+      "wordCountHint": "Recommended range: 200-5000 words, 1000 words recommended",
+      "generateButton": "🚀 Generate Essay",
+      "generatingText": "AI is generating...",
+      "clearButton": "🗑️ Clear",
+      "resultTitle": "Generation Complete",
+      "resultDescription": "Your essay has been generated. Please review and use as needed.",
+      "copyButton": "📋 Copy Content",
+      "downloadButton": "💾 Download Document",
+      "wordCountStat": "Word Count:",
+      "essayTypeStat": "Type:",
+      "generatedTime": "Generated at:",
+      "copySuccess": "Content copied to clipboard",
+      "copyError": "Copy failed, please copy manually",
+      "generateError": "Generation failed, please try again later",
+      "wordCountOptions": {
+        "800": {
+          "label": "📏 Around 800 words (Concise)",
+          "title": "Around 800 words",
+          "description": "Concise - Suitable for quickly expressing core ideas",
+          "icon": "📏"
+        },
+        "1000": {
+          "label": "📄 Around 1000 words (Standard)",
+          "title": "Around 1000 words", 
+          "description": "Standard - Balanced detail and length",
+          "icon": "📄"
+        },
+        "1200": {
+          "label": "📋 Around 1200 words (Detailed)",
+          "title": "Around 1200 words",
+          "description": "Detailed - More comprehensive discussion and analysis", 
+          "icon": "📋"
+        },
+        "1500": {
+          "label": "📚 Around 1500 words (Full Version)",
+          "title": "Around 1500 words",
+          "description": "Full Version - In-depth and professional discussion",
+          "icon": "📚"
+        }
+      }
     }
   },
   "pages": {
