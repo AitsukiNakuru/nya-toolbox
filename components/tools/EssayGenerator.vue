@@ -1,107 +1,190 @@
 <template>
-  <div class="max-w-4xl mx-auto p-6">
-    <div class="bg-white rounded-lg shadow-lg p-6">
-      <h1 class="text-2xl font-bold text-gray-900 mb-6">申论生成器</h1>
-      
-      <!-- 输入区域 -->
-      <div class="space-y-6">
-        <!-- 题目输入 -->
-        <div>
-          <label for="topic" class="block text-sm font-medium text-gray-700 mb-2">
-            申论题目 *
-          </label>
-          <textarea
-            id="topic"
-            v-model="topic"
-            placeholder="请输入申论题目或材料概述..."
-            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-            rows="3"
-          ></textarea>
-        </div>
-
-        <!-- 要求选择 -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">
-            申论类型
-          </label>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <button
-              v-for="type in essayTypes"
-              :key="type.id"
-              @click="selectedType = type.id"
-              :class="[
-                'p-3 border rounded-lg text-sm font-medium transition-all',
-                selectedType === type.id
-                  ? 'border-blue-500 bg-blue-50 text-blue-700'
-                  : 'border-gray-300 hover:border-blue-300'
-              ]"
-            >
-              {{ type.name }}
-            </button>
-          </div>
-        </div>
-
-        <!-- 字数要求 -->
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">
-            字数要求
-          </label>
-          <select
-            v-model="wordCount"
-            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="800">800字左右</option>
-            <option value="1000">1000字左右</option>
-            <option value="1200">1200字左右</option>
-            <option value="1500">1500字左右</option>
-          </select>
-        </div>
-
-        <!-- 生成按钮 -->
-        <div class="flex gap-3">
-          <button
-            @click="generateEssay"
-            :disabled="!topic.trim() || isGenerating"
-            class="flex-1 bg-blue-500 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
-          >
-            <span v-if="isGenerating">生成中...</span>
-            <span v-else>生成申论</span>
-          </button>
-          <button
-            @click="clearAll"
-            class="px-6 py-3 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors"
-          >
-            清空
-          </button>
-        </div>
+  <div class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8 px-4">
+    <div class="max-w-5xl mx-auto">
+      <!-- 页面标题 -->
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold animate-gradient mb-3">
+          📝 智能申论生成器
+        </h1>
+        <p class="text-gray-600 text-lg">高效生成高质量申论文章，助力公考备考</p>
       </div>
 
-      <!-- 生成结果 -->
-      <div v-if="generatedEssay" class="mt-8 border-t pt-6">
-        <div class="flex justify-between items-center mb-4">
-          <h2 class="text-lg font-semibold text-gray-900">生成的申论</h2>
-          <div class="flex gap-2">
+      <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-8">
+        <!-- 输入区域 -->
+        <div class="space-y-8">
+          <!-- 题目输入 -->
+          <div class="group">
+            <label for="topic" class="flex items-center gap-2 text-sm font-semibold text-gray-800 mb-3">
+              <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+              申论题目 
+              <span class="text-red-500">*</span>
+            </label>
+            <div class="relative">
+              <textarea
+                id="topic"
+                v-model="topic"
+                placeholder="请输入申论题目或材料概述，例如：关于推进数字化转型的思考..."
+                class="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 resize-none bg-gray-50/50 hover:bg-white group-hover:border-blue-300 focus-glow"
+                rows="4"
+              ></textarea>
+              <div class="absolute top-2 right-3 text-xs text-gray-400">
+                {{ topic.length }}/500
+              </div>
+            </div>
+          </div>
+
+          <!-- 要求选择 -->
+          <div class="group">
+            <label class="flex items-center gap-2 text-sm font-semibold text-gray-800 mb-4">
+              <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
+              申论类型
+            </label>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              <button
+                v-for="type in essayTypes"
+                :key="type.id"
+                @click="selectedType = type.id"
+                :class="[
+                  'group relative p-4 border-2 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover-lift',
+                  selectedType === type.id
+                    ? 'border-blue-500 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 shadow-lg shadow-blue-500/25'
+                    : 'border-gray-200 bg-white hover:border-blue-300 hover:bg-blue-50/50'
+                ]"
+              >
+                <div class="flex items-center justify-center gap-2">
+                  <span :class="selectedType === type.id ? 'text-blue-600' : 'text-gray-500'">
+                    {{ type.icon }}
+                  </span>
+                  {{ type.name }}
+                </div>
+                <div v-if="selectedType === type.id" class="absolute -top-2 -right-2 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                  <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- 字数要求 -->
+          <div class="group">
+            <label class="flex items-center gap-2 text-sm font-semibold text-gray-800 mb-4">
+              <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+              字数要求
+            </label>
+            <div class="relative">
+              <select
+                v-model="wordCount"
+                class="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 bg-gray-50/50 hover:bg-white appearance-none cursor-pointer focus-glow"
+              >
+                <option value="800">📏 800字左右 (简洁版)</option>
+                <option value="1000">📄 1000字左右 (标准版)</option>
+                <option value="1200">📋 1200字左右 (详细版)</option>
+                <option value="1500">📚 1500字左右 (完整版)</option>
+              </select>
+              <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- 生成按钮 -->
+          <div class="flex flex-col sm:flex-row gap-4 pt-4">
             <button
-              @click="copyToClipboard"
-              class="px-4 py-2 bg-green-500 text-white rounded-lg text-sm font-medium hover:bg-green-600 transition-colors"
+              @click="generateEssay"
+              :disabled="!topic.trim() || isGenerating"
+              class="flex-1 relative overflow-hidden bg-gradient-to-r from-blue-500 to-purple-600 text-white py-4 px-8 rounded-xl font-semibold hover:from-blue-600 hover:to-purple-700 disabled:from-gray-300 disabled:to-gray-400 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105 hover:shadow-xl group"
             >
-              复制内容
+              <span v-if="isGenerating" class="flex items-center justify-center gap-3">
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                AI正在生成中...
+              </span>
+              <span v-else class="flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                🚀 生成申论
+              </span>
+              <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
             </button>
             <button
-              @click="downloadEssay"
-              class="px-4 py-2 bg-purple-500 text-white rounded-lg text-sm font-medium hover:bg-purple-600 transition-colors"
+              @click="clearAll"
+              class="px-8 py-4 border-2 border-gray-300 rounded-xl font-semibold hover:bg-gray-50 hover:border-gray-400 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 group"
             >
-              下载文档
+              <svg class="w-5 h-5 text-gray-500 group-hover:text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+              </svg>
+              清空重置
             </button>
           </div>
         </div>
-        
-        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
-          <div class="whitespace-pre-wrap text-gray-800 leading-relaxed">{{ generatedEssay }}</div>
-        </div>
-        
-        <div class="mt-4 text-sm text-gray-600">
-          字数统计: {{ essayWordCount }} 字
+
+        <!-- 生成结果 -->
+        <div v-if="generatedEssay" class="mt-12 pt-8 border-t-2 border-gray-100">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
+                <span class="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+                  <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                </span>
+                生成完成
+              </h2>
+              <p class="text-gray-600 mt-1">您的申论文章已生成完成，请查看并使用</p>
+            </div>
+            <div class="flex flex-wrap gap-3">
+              <button
+                @click="copyToClipboard"
+                class="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl text-sm font-semibold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                </svg>
+                📋 复制内容
+              </button>
+              <button
+                @click="downloadEssay"
+                class="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-xl text-sm font-semibold hover:from-purple-600 hover:to-pink-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                💾 下载文档
+              </button>
+            </div>
+          </div>
+          
+          <div class="bg-gradient-to-br from-gray-50 to-blue-50/30 border-2 border-gray-200 rounded-2xl p-8 shadow-inner">
+            <div class="whitespace-pre-wrap text-gray-800 leading-relaxed text-base font-medium selection:bg-blue-200">{{ generatedEssay }}</div>
+          </div>
+          
+          <div class="mt-6 flex flex-wrap items-center justify-between gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
+            <div class="flex items-center gap-6 text-sm text-gray-600">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                <span class="font-medium">字数统计:</span>
+                <span class="font-bold text-blue-600">{{ essayWordCount }}</span>
+                <span>字</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                <span class="font-medium">类型:</span>
+                <span class="font-bold text-green-600">{{ essayTypes.find(t => t.id === selectedType)?.name }}</span>
+              </div>
+            </div>
+            <div class="text-xs text-gray-500 flex items-center gap-1">
+              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+              </svg>
+              生成时间: {{ new Date().toLocaleString() }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -120,10 +203,10 @@ const isGenerating = ref(false)
 
 // 申论类型
 const essayTypes = [
-  { id: 'analysis', name: '分析论证' },
-  { id: 'countermeasure', name: '对策建议' },
-  { id: 'implementation', name: '贯彻执行' },
-  { id: 'comprehensive', name: '综合分析' }
+  { id: 'analysis', name: '分析论证', icon: '🔍' },
+  { id: 'countermeasure', name: '对策建议', icon: '💡' },
+  { id: 'implementation', name: '贯彻执行', icon: '⚡' },
+  { id: 'comprehensive', name: '综合分析', icon: '📊' }
 ]
 
 // 计算生成文章的字数
@@ -451,5 +534,67 @@ const downloadEssay = () => {
   line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #2563eb, #7c3aed);
+}
+
+/* 优化选择文本样式 */
+::selection {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+/* 添加悬浮动画 */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+.group:hover .float-animation {
+  animation: float 2s ease-in-out infinite;
+}
+
+/* 渐变文本动画 */
+@keyframes gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient {
+  background: linear-gradient(-45deg, #3b82f6, #8b5cf6, #06b6d4, #10b981);
+  background-size: 400% 400%;
+  animation: gradient 3s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 输入框聚焦时的发光效果 */
+.focus-glow:focus {
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1), 
+              0 0 20px rgba(59, 130, 246, 0.1);
+}
+
+/* 按钮悬浮时的阴影效果 */
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 </style>
